@@ -1,13 +1,23 @@
 <header class="navbar navbar-fixed-top navbar-inverse">
   <div class="navbar-inner">
     <div class="container">
-      <%= link_to "sample app", root_path, id: "logo" %>
+      <%= link_to "カンファレンス配信", root_path, id: "logo" %>
       <nav>
         <ul class="nav pull-right">
           <li><%= link_to "Home", root_path %></li>
-          <li><%= link_to "Help", help_path %></li>
           <% if signed_in? %>
-            <li><%= link_to "Users", users_path %></li>
+            <li><%= link_to "メッセージ", messages_path %></li>
+            <li id="settings-menu" class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                設定 <b class="caret"></b>
+              </a>
+              <ul class="dropdown-menu">
+                <li><%= link_to "メール宛先管理", recipients_path %></li>
+                <li><%= link_to "Slackチャンネル管理", slack_channels_path %></li>
+                <li class="divider"></li>
+                <li><%= link_to "ユーザー管理", users_path %></li>
+              </ul>
+            </li>
             <li id="fat-menu" class="dropdown">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                 Account <b class="caret"></b>

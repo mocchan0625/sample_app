@@ -1,0 +1,9 @@
+<% provide(:title, "新しいメッセージ") %>
+
+<div class="row">
+  <div class="col-md-8 col-md-offset-2">
+    <h1>新しいメッセージを作成</h1>
+    <%= render 'form' %>
+    <%= link_to "キャンセル", messages_path, class: "btn btn-link" %>
+  </div>
+</div>

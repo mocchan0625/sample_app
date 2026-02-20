@@ -1,13 +1,63 @@
-<div class="center hero-unit">
-  <h1>Welcome to the Sample App</h1>
+<% if signed_in? %>
+  <div class="row">
+    <div class="col-md-10 col-md-offset-1">
+      <h1>カンファレンス メッセージ配信システム</h1>
+      <p class="lead">メッセージを一度書くだけで、登録済みの全メール宛先・Slackチャンネルに一斉送信できます。</p>
 
-  <h2>
-    This is the home page for the
-    <a href="http://railstutorial.jp/">Ruby on Rails Tutorial</a>
-    sample application.
-  </h2>
-
-  <%= link_to "Sign up now!", signup_path, class: "btn btn-large btn-primary" %>
-</div>
-
-<%= link_to image_tag("rails.png", alt: "Rails"), 'http://rubyonrails.org/' %>
+      <div class="row" style="margin-top: 30px;">
+        <div class="col-md-4">
+          <div class="panel panel-primary">
+            <div class="panel-heading">
+              <h3 class="panel-title">メッセージ</h3>
+            </div>
+            <div class="panel-body">
+              <p>メッセージを作成して、メール・Slackに一斉送信します。</p>
+              <%= link_to "メッセージを作成", new_message_path, class: "btn btn-primary" %>
+              &nbsp;
+              <%= link_to "一覧を見る", messages_path, class: "btn btn-default" %>
+            </div>
+            <div class="panel-footer">
+              送信済み: <%= Message.sent.count %>件 / 下書き: <%= Message.drafts.count %>件
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="panel panel-info">
+            <div class="panel-heading">
+              <h3 class="panel-title">メール宛先</h3>
+            </div>
+            <div class="panel-body">
+              <p>送信先のメールアドレスを管理します。</p>
+              <%= link_to "宛先を管理", recipients_path, class: "btn btn-info" %>
+            </div>
+            <div class="panel-footer">
+              登録件数: <%= Recipient.count %>件
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="panel panel-success">
+            <div class="panel-heading">
+              <h3 class="panel-title">Slackチャンネル</h3>
+            </div>
+            <div class="panel-body">
+              <p>送信先のSlackチャンネルを管理します。</p>
+              <%= link_to "チャンネルを管理", slack_channels_path, class: "btn btn-success" %>
+            </div>
+            <div class="panel-footer">
+              登録チャンネル数: <%= SlackChannel.count %>件
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+<% else %>
+  <div class="center hero-unit">
+    <h1>カンファレンス メッセージ配信システム</h1>
+    <h2>
+      メールとSlackに一括送信できる、カンファレンス向けメッセージ配信ツールです。
+    </h2>
+    <%= link_to "サインインして始める", signin_path, class: "btn btn-large btn-primary" %>
+  </div>
+<% end %>

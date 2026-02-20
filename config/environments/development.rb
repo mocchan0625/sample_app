@@ -1,29 +1,27 @@
+require "active_support/core_ext/integer/time"
+
 SampleApp::Application.configure do
-  # Settings specified here will take precedence over those in config/application.rb.
-
-  # In the development environment your application's code is reloaded on
-  # every request. This slows down response time but is perfect for development
-  # since you don't have to restart the web server when you make code changes.
-  config.cache_classes = false
-
-  # Do not eager load code on boot.
+  config.enable_reloading = true
   config.eager_load = false
+  config.consider_all_requests_local = true
+  config.server_timing = true
 
-  # Show full error reports and disable caching.
-  config.consider_all_requests_local       = true
   config.action_controller.perform_caching = false
+  config.action_controller.enable_fragment_cache_logging = true
 
-  # Don't care if the mailer can't send.
+  config.cache_store = :null_store
+
   config.action_mailer.raise_delivery_errors = false
+  config.action_mailer.perform_caching = false
 
-  # Print deprecation notices to the Rails logger.
   config.active_support.deprecation = :log
+  config.active_support.disallowed_deprecation = :raise
+  config.active_support.disallowed_deprecation_warnings = []
 
-  # Raise an error on page load if there are pending migrations
   config.active_record.migration_error = :page_load
+  config.active_record.verbose_query_logs = true
+  config.active_record.query_log_tags_enabled = true
 
-  # Debug mode disables concatenation and preprocessing of assets.
-  # This option may cause significant delays in view rendering with a large
-  # number of complex assets.
   config.assets.debug = true
+  config.assets.quiet = true
 end

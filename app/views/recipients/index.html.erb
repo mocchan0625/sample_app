@@ -1,0 +1,40 @@
+<% provide(:title, "メール宛先管理") %>
+
+<div class="row">
+  <div class="col-md-10 col-md-offset-1">
+    <h1>メール宛先管理</h1>
+    <%= link_to "宛先を追加", new_recipient_path, class: "btn btn-primary" %>
+
+    <% if @recipients.empty? %>
+      <div class="alert alert-warning" style="margin-top: 20px;">
+        メール宛先がまだ登録されていません
+      </div>
+    <% else %>
+      <table class="table table-bordered" style="margin-top: 20px;">
+        <thead>
+          <tr>
+            <th>名前</th>
+            <th>メールアドレス</th>
+            <th>操作</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @recipients.each do |recipient| %>
+            <tr>
+              <td><%= recipient.name %></td>
+              <td><%= recipient.email %></td>
+              <td>
+                <%= link_to "編集", edit_recipient_path(recipient), class: "btn btn-xs btn-default" %>
+                <%= link_to "削除", recipient_path(recipient), method: :delete,
+                    data: { confirm: "#{recipient.name} を削除しますか？" },
+                    class: "btn btn-xs btn-danger" %>
+              </td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    <% end %>
+
+    <%= link_to "メッセージ一覧に戻る", messages_path, class: "btn btn-link" %>
+  </div>
+</div>

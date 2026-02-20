@@ -1,0 +1,32 @@
+<%= form_for @message do |f| %>
+  <% if @message.errors.any? %>
+    <div class="alert alert-danger">
+      <ul>
+        <% @message.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="form-group">
+    <%= f.label :subject, "件名" %>
+    <%= f.text_field :subject, class: "form-control", placeholder: "件名を入力してください" %>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :body, "本文" %>
+    <%= f.text_area :body, class: "form-control", rows: 12,
+        placeholder: "本文を入力してください" %>
+  </div>
+
+  <div class="alert alert-info" style="margin-top: 10px;">
+    <strong>送信先:</strong>
+    メール <%= Recipient.count %>件、Slackチャンネル <%= SlackChannel.count %>件
+    &nbsp;
+    (<%= link_to "宛先を管理", recipients_path %> /
+     <%= link_to "Slackチャンネルを管理", slack_channels_path %>)
+  </div>
+
+  <%= f.submit "保存", class: "btn btn-primary" %>
+<% end %>

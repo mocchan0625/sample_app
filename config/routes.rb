@@ -3,6 +3,14 @@ SampleApp::Application.routes.draw do
   resources :users
   resources :sessions, only: [:new, :create, :destroy]
 
+  resources :messages do
+    member do
+      post :broadcast
+    end
+  end
+  resources :recipients
+  resources :slack_channels
+
   root to: "static_pages#home"
   match '/signup',  to: 'users#new',            via: 'get'
   match '/signin',  to: 'sessions#new',         via: 'get'

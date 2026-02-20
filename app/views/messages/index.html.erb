@@ -1,0 +1,67 @@
+<% provide(:title, "メッセージ一覧") %>
+
+<div class="row">
+  <div class="col-md-10 col-md-offset-1">
+    <h1>メッセージ一覧</h1>
+    <%= link_to "新しいメッセージを作成", new_message_path, class: "btn btn-primary" %>
+
+    <h3 style="margin-top: 30px;">下書き</h3>
+    <% if @draft_messages.empty? %>
+      <p class="text-muted">下書きはありません</p>
+    <% else %>
+      <table class="table table-bordered">
+        <thead>
+          <tr>
+            <th>件名</th>
+            <th>作成日時</th>
+            <th>操作</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @draft_messages.each do |msg| %>
+            <tr>
+              <td><%= link_to msg.subject, message_path(msg) %></td>
+              <td><%= msg.created_at.strftime('%Y/%m/%d %H:%M') %></td>
+              <td>
+                <%= link_to "編集", edit_message_path(msg), class: "btn btn-xs btn-default" %>
+                <%= link_to "送信", broadcast_message_path(msg), method: :post,
+                    data: { confirm: "このメッセージを全員に送信しますか？" },
+                    class: "btn btn-xs btn-success" %>
+                <%= link_to "削除", message_path(msg), method: :delete,
+                    data: { confirm: "削除しますか？" }, class: "btn btn-xs btn-danger" %>
+              </td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    <% end %>
+
+    <h3 style="margin-top: 20px;">送信済み</h3>
+    <% if @sent_messages.empty? %>
+      <p class="text-muted">送信済みメッセージはありません</p>
+    <% else %>
+      <table class="table table-bordered">
+        <thead>
+          <tr>
+            <th>件名</th>
+            <th>送信日時</th>
+            <th>操作</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @sent_messages.each do |msg| %>
+            <tr>
+              <td><%= link_to msg.subject, message_path(msg) %></td>
+              <td><%= msg.sent_at.strftime('%Y/%m/%d %H:%M') %></td>
+              <td>
+                <%= link_to "詳細", message_path(msg), class: "btn btn-xs btn-default" %>
+                <%= link_to "削除", message_path(msg), method: :delete,
+                    data: { confirm: "削除しますか？" }, class: "btn btn-xs btn-danger" %>
+              </td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    <% end %>
+  </div>
+</div>

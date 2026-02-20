@@ -1,0 +1,50 @@
+<% provide(:title, @message.subject) %>
+
+<div class="row">
+  <div class="col-md-10 col-md-offset-1">
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <div style="display: flex; justify-content: space-between; align-items: center;">
+          <h2 style="margin: 0;"><%= @message.subject %></h2>
+          <span class="label label-<%= @message.sent? ? 'success' : 'default' %>">
+            <%= @message.sent? ? '送信済み' : '下書き' %>
+          </span>
+        </div>
+      </div>
+      <div class="panel-body">
+        <p style="white-space: pre-wrap;"><%= @message.body %></p>
+      </div>
+      <div class="panel-footer text-muted">
+        <% if @message.sent? %>
+          送信日時: <%= @message.sent_at.strftime('%Y/%m/%d %H:%M') %>
+        <% else %>
+          作成日時: <%= @message.created_at.strftime('%Y/%m/%d %H:%M') %>
+        <% end %>
+        <% if @message.user %>
+          &nbsp;| 作成者: <%= @message.user.name %>
+        <% end %>
+      </div>
+    </div>
+
+    <div class="actions" style="margin-top: 10px;">
+      <% unless @message.sent? %>
+        <%= link_to "編集", edit_message_path(@message), class: "btn btn-default" %>
+        <%= link_to "送信する", broadcast_message_path(@message), method: :post,
+            data: { confirm: "登録済みの全メール宛先・Slackチャンネルに送信します。よろしいですか？" },
+            class: "btn btn-success" %>
+      <% end %>
+      <%= link_to "一覧に戻る", messages_path, class: "btn btn-link" %>
+      <% unless @message.sent? %>
+        <%= link_to "削除", message_path(@message), method: :delete,
+            data: { confirm: "削除しますか？" }, class: "btn btn-danger pull-right" %>
+      <% end %>
+    </div>
+
+    <% if @message.sent? %>
+      <div class="alert alert-info" style="margin-top: 20px;">
+        <strong>送信先:</strong>
+        メール <%= Recipient.count %>件、Slackチャンネル <%= SlackChannel.count %>件
+      </div>
+    <% end %>
+  </div>
+</div>

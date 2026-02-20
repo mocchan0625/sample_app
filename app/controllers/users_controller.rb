@@ -22,7 +22,7 @@ class UsersController < ApplicationController
       flash[:success] = "Welcome to the Sample App!"
       redirect_to @user
     else
-      render 'new'
+      render 'new', status: :unprocessable_entity
     end
   end
 
@@ -30,12 +30,12 @@ class UsersController < ApplicationController
   end
 
   def update
-    if @user.update_attributes(user_params)
+    if @user.update(user_params)
       flash[:success] = "Profile updated"
       sign_in @user
       redirect_to @user
     else
-      render 'edit'
+      render 'edit', status: :unprocessable_entity
     end
   end
 

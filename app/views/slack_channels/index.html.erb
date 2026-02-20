@@ -1,0 +1,40 @@
+<% provide(:title, "Slackチャンネル管理") %>
+
+<div class="row">
+  <div class="col-md-10 col-md-offset-1">
+    <h1>Slackチャンネル管理</h1>
+    <%= link_to "チャンネルを追加", new_slack_channel_path, class: "btn btn-primary" %>
+
+    <% if @slack_channels.empty? %>
+      <div class="alert alert-warning" style="margin-top: 20px;">
+        Slackチャンネルがまだ登録されていません
+      </div>
+    <% else %>
+      <table class="table table-bordered" style="margin-top: 20px;">
+        <thead>
+          <tr>
+            <th>チャンネル名</th>
+            <th>Webhook URL</th>
+            <th>操作</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @slack_channels.each do |channel| %>
+            <tr>
+              <td><%= channel.name %></td>
+              <td><code style="font-size: 11px;"><%= channel.webhook_url.truncate(60) %></code></td>
+              <td>
+                <%= link_to "編集", edit_slack_channel_path(channel), class: "btn btn-xs btn-default" %>
+                <%= link_to "削除", slack_channel_path(channel), method: :delete,
+                    data: { confirm: "#{channel.name} を削除しますか？" },
+                    class: "btn btn-xs btn-danger" %>
+              </td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    <% end %>
+
+    <%= link_to "メッセージ一覧に戻る", messages_path, class: "btn btn-link" %>
+  </div>
+</div>

@@ -1,0 +1,28 @@
+<%= form_for @slack_channel do |f| %>
+  <% if @slack_channel.errors.any? %>
+    <div class="alert alert-danger">
+      <ul>
+        <% @slack_channel.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="form-group">
+    <%= f.label :name, "チャンネル名" %>
+    <%= f.text_field :name, class: "form-control", placeholder: "#general, 運営チームなど" %>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :webhook_url, "Slack Incoming Webhook URL" %>
+    <%= f.url_field :webhook_url, class: "form-control",
+        placeholder: "https://hooks.slack.com/services/..." %>
+    <span class="help-block">
+      Slack の「Incoming Webhook」で取得したURLを入力してください。
+      取得方法: Slack の App ディレクトリ → Incoming WebHooks → 設定を追加する
+    </span>
+  </div>
+
+  <%= f.submit "保存", class: "btn btn-primary" %>
+<% end %>
