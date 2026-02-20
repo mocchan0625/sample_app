@@ -22,6 +22,7 @@ SampleApp::Application.configure do
   config.active_record.verbose_query_logs = true
   config.active_record.query_log_tags_enabled = true
 
+  config.assets.compile = true
   config.assets.debug = true
   config.assets.quiet = true
 end

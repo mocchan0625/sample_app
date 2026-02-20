@@ -14,7 +14,7 @@ module SampleApp
 
     config.autoload_paths << Rails.root.join("app/services")
 
-    config.assets.precompile += %w(*.png *.jpg *.jpeg *.gif)
+    config.assets.precompile += %w(*.png *.jpg *.jpeg *.gif application.css application.js)
 
     config.generators.system_tests = nil
   end

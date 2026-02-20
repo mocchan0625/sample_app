@@ -3,6 +3,10 @@
 /* mixins, variables, etc. */
 
 $grayMediumLight: #eaeaea;
+$grayLighter:     $gray-lighter;
+$grayLight:       $gray-light;
+$gray:            $gray-base;
+$grayDarker:      $gray-darker;
 
 /* 共通 */
 
@@ -157,8 +161,7 @@ input, textarea, select, .uneditable-input {
 }
 
 .field_with_errors {
-  @extend .control-group;
-  @extend .errors;
+  @extend .form-group;
 }
 
 input {
